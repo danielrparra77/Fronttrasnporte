@@ -1,0 +1,91 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>
+      nueva Empresa
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <form (ngSubmit)="enviarEmpresa()">
+    <ion-title>
+      Datos de contacto
+    </ion-title>
+    <ion-item>
+      <ion-label>Tipo de documento</ion-label>
+      <ion-select [(ngModel)]="empresa.contacto.tipoId" [ngModelOptions]="{standalone: true}">
+        <ion-item *ngFor ="let element of DocTypes">
+          <ion-select-option [value]="element.tipo">{{element.tipo}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Numero de documento</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.contacto.numeroId" name="contactonumeroId" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.contacto.nombre" name="contactonombre" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dirección</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.contacto.direccion" name="contactodireccion" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ciudad</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.contacto.ciudad" name="contactociudad" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Departamento</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.contacto.departamento" name="contactodepartamento" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>País</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.contacto.pais" name="contactopais" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Telefono</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.contacto.telefono" name="contactotelefono" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-title>
+      Datos de representante legal
+    </ion-title>
+    <ion-item>
+      <ion-label>Tipo de documento</ion-label>
+      <ion-select [(ngModel)]="empresa.representante.tipoId" [ngModelOptions]="{standalone: true}">
+        <ion-item *ngFor ="let element of DocTypes">
+          <ion-select-option [value]="element.tipo">{{element.tipo}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Numero de documento</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.representante.numeroId" name="representantenumeroId" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.representante.nombre" name="representantenombre" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dirección</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.representante.direccion" name="representantedireccion" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ciudad</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.representante.ciudad" name="representanteciudad" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Departamento</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.representante.departamento" name="representantedepartamento" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>País</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.representante.pais" name="representantepais" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Telefono</ion-label>
+      <ion-input type="text" [(ngModel)]="empresa.representante.telefono" name="representantetelefono" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Enviar</button>
+  </form>
+</ion-content>

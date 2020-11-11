@@ -1,0 +1,59 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Empresas
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Empresas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-button color="primary" (click)="nuevaEmpresa()">Nueva empresa</ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col>Datos de contacto</ion-col>
+      <ion-col>Datos de representante legal</ion-col>
+    </ion-row>
+    <ion-row *ngFor ="let element of dataSource" >
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{element.contacto.tipoId}} {{element.contacto.numeroId}}</ion-card-subtitle>
+            <ion-card-title>{{element.contacto.nombre}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{element.contacto.direccion}}
+            {{element.contacto.ciudad}}
+            {{element.contacto.departamento}}
+            {{element.contacto.pais}}
+            {{element.contacto.telefono}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{element.representante.tipoId}} {{element.representante.numeroId}}</ion-card-subtitle>
+            <ion-card-title>{{element.representante.nombre}}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{element.representante.direccion}}
+            {{element.representante.ciudad}}
+            {{element.representante.departamento}}
+            {{element.representante.pais}}
+            {{element.representante.telefono}}
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary" [routerLink]="['/vehiculos/'+element.id]">ver Vehiculos</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

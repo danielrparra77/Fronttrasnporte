@@ -1,0 +1,66 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>
+      nuevo Vehiculo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <form (ngSubmit)="enviarVehiculo()">
+    <ion-item>
+      <ion-label>Placa</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.placa" name="placa" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Motor</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.motor" name="motor" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Chasis</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.chasis" name="chasis" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Fecha Matricula</ion-label>
+      <ion-input type="date" [(ngModel)]="vehiculo.fecha_matricula" name="fecha_matricula" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Pasajeros</ion-label>
+      <ion-input type="number" [(ngModel)]="vehiculo.pasajeros" name="pasajeros" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Sentados</ion-label>
+      <ion-input type="number" [(ngModel)]="vehiculo.pasajeros_sentados" name="pasajeros_sentados" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>De pie</ion-label>
+      <ion-input type="number" [(ngModel)]="vehiculo.pasajeros_pie" name="pasajeros_pie" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Peso seco</ion-label>
+      <ion-input type="number" [(ngModel)]="vehiculo.peso_seco" name="peso_seco" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Peso Bruto</ion-label>
+      <ion-input type="number" [(ngModel)]="vehiculo.peso_bruto" name="peso_bruto" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cantidad puertas</ion-label>
+      <ion-input type="number" [(ngModel)]="vehiculo.catidad_puertas" name="catidad_puertas" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Marca</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.marca" name="marca" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Linea</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.linea" name="linea" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>placa</ion-label>
+      <ion-input type="text" [(ngModel)]="vehiculo.placa" name="placa" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Enviar</button>
+  </form>
+</ion-content>

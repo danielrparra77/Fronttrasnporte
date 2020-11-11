@@ -1,0 +1,49 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>
+      nuevo Conductor
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <form (ngSubmit)="enviarVehiculo()">
+    <ion-item>
+      <ion-label>Tipo de documento</ion-label>
+      <ion-select [(ngModel)]="conductor.tipoId" [ngModelOptions]="{standalone: true}">
+        <ion-item *ngFor ="let element of DocTypes">
+          <ion-select-option [value]="element.tipo">{{element.tipo}}</ion-select-option>
+        </ion-item>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Numero de documento</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.numeroId" name="numeroId" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.nombre" name="nombre" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Dirección</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.direccion" name="direccion" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ciudad</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.ciudad" name="ciudad" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Departamento</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.departamento" name="departamento" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>País</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.pais" name="pais" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Telefono</ion-label>
+      <ion-input type="text" [(ngModel)]="conductor.telefono" name="telefono" [ngModelOptions]="{standalone: true}"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Enviar</button>
+  </form>
+</ion-content>
