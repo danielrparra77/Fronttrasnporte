@@ -1,20 +1,10 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { nuevaEmpresaPage } from './nueva-empresa/nuevaEmpresa.page';
+import { AjaxService } from '../../providers/ajax/ajax.service';
+import { VehiculosEstrategicoPage } from './vehiculos-estrategico/vehiculosEstrategico.page';
 
 
-let ELEMENT_DATA:any[] = [
-  {
-    id:1,
-    contacto:{tipoId:"CC",numeroId:"1234567",nombre:"ALENXADER PEREZ", direccion:"CALLE FALSA 123", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"},
-    representante:{tipoId:"CC",numeroId:"1234567",nombre:"ALENXADER PEREZ", direccion:"CALLE FALSA 123", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"}
-  },  
-  {
-    id:2,
-    contacto:{tipoId:"CC",numeroId:"9867543",nombre:"ANDREA TORRES", direccion:"CALLE FALSA 789", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"},
-    representante:{tipoId:"CC",numeroId:"9867543",nombre:"ANDREA TORRES", direccion:"CALLE FALSA 789", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"}
-  },
-];
 
 @Component({
   selector: 'app-empresasPage',
@@ -24,10 +14,30 @@ let ELEMENT_DATA:any[] = [
 export class EmpresasPage {
 
   displayedColumns: string[] = ['contacto', 'representante'];
-  dataSource = ELEMENT_DATA;
+  dataSource:any[];
 
-  constructor(public modalController: ModalController) {}
+  constructor(public modalController: ModalController, private ajax: AjaxService) {
+    this.consultarEmpresas();
+  }
 
+  async consultarEmpresas(){
+    let self = this;
+    this.ajax.post('api/consultarEmpresas',{}).subscribe(data => {
+      if (data.success) {
+        self.dataSource = data.response.empresas;
+      }
+    });
+  }
+
+  async crearEmpresa(nuevaEmpresa){
+    let self = this;
+    this.ajax.post('api/crearEmpresa',{nuevaEmpresa}).subscribe(data => {
+      if (data.success) {
+        nuevaEmpresa.id = data.response.id;
+        self.dataSource.push(nuevaEmpresa);
+      }
+    });
+  }
 
   async nuevaEmpresa() {
     let self = this;
@@ -43,12 +53,21 @@ export class EmpresasPage {
     });
     modal.onDidDismiss().then((datos)=>{
       if (datos.data.evento=='CREATE')
-        self.dataSource.push(datos.data.empresa);
+        return self.crearEmpresa(datos.data.empresa);
     });
     return await modal.present();
   }
 
-  irVehiculos(){
-    
+  async consultarEstrategico() {
+    let self = this;
+    const modalEst = await this.modalController.create({
+      component: VehiculosEstrategicoPage,
+      cssClass: 'consultarVehiculos',
+      componentProps: {
+        id_empresa: {
+        }
+      }
+    });
+    return await modalEst.present();
   }
 }

@@ -24,7 +24,7 @@ export class NuevoConductorPage {
   }
 
   enviarVehiculo() {
-    let evento = this.conductor.id?"UPDATE":"CREATE";
+    let evento = this.conductor.id_conductor?"UPDATE":"CREATE";
     this.viewCtrl.dismiss({evento,conductor:this.conductor});
   }
 }

@@ -2,24 +2,9 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { NuevoConductorPage } from './nuevo-conductor/nuevoConductor.page';
+import { AjaxService } from '../../providers/ajax/ajax.service';
 
-let ELEMENT_DATA:any[] = [
-  {
-    id:1,
-    conductores:[
-      {tipoId:"CC",numeroId:"1234567",nombre:"ALENXADER PEREZ", direccion:"CALLE FALSA 123", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"},
-      {tipoId:"CC",numeroId:"1234567",nombre:"ALENXADER PEREZ", direccion:"CALLE FALSA 123", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"}
-    ]
-  },  
-  {
-    id:2,
-    conductores:[
-      {tipoId:"CC",numeroId:"1234567",nombre:"ALENXADER PEREZ", direccion:"CALLE FALSA 123", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"},
-      {tipoId:"CC",numeroId:"1234567",nombre:"ALENXADER PEREZ", direccion:"CALLE FALSA 123", ciudad:"Bogota",departamento:"Bogota",pais:"Colombia",telefono:"1234567"}
-      
-    ]
-  },
-];
+
 
 @Component({
   selector: 'app-ConductoresPage',
@@ -32,7 +17,9 @@ export class ConductoresPage {
   id_vehiculo:Number;
   
 
-  constructor(public route:ActivatedRoute, public modalController: ModalController ) {
+  constructor(public route:ActivatedRoute
+    , public modalController: ModalController
+    , private ajax: AjaxService ) {
     this.dataSource = [];
     this.route.params.subscribe((params: any) => {
       if (params['id_vehiculo']) {
@@ -46,12 +33,23 @@ export class ConductoresPage {
   }
 
   consultarConductores(){
-    let conductores = ELEMENT_DATA.filter(e=>e.id==this.id_vehiculo);
-    if (conductores.length<=0)
-      return;
-    this.dataSource = conductores[0]["conductores"];
+    let self = this;
+    this.ajax.post('api/consultarConductores',{id_vehiculo:this.id_vehiculo}).subscribe(data => {
+      if (data.success) {
+        self.dataSource = data.response.conductores["conductores"];
+      }
+    });
   }
 
+  async crearConductor(nuevoConductor){
+    let self = this;
+    this.ajax.post('api/crearConductor',{nuevoConductor,id_vehiculo:this.id_vehiculo}).subscribe(data => {
+      if (data.success) {
+        nuevoConductor.id_conductor = data.response.id_conductor;
+        self.dataSource.push(nuevoConductor);
+      }
+    });
+  }
 
   async nuevoConductor() {
     let self = this;
@@ -65,7 +63,7 @@ export class ConductoresPage {
     });
     modal.onDidDismiss().then((datos)=>{
       if (datos.data.evento=='CREATE')
-        self.dataSource.push(datos.data.conductor);
+      return self.crearConductor(datos.data.conductor);
     });
     return await modal.present();
   }

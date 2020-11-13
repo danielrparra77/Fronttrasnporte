@@ -13,9 +13,10 @@
     </ion-toolbar>
   </ion-header>
   <ion-button color="primary" (click)="nuevaEmpresa()">Nueva empresa</ion-button>
+  <ion-button color="primary" (click)="consultarEstrategico()">Consulta de vehiculos estrategicos</ion-button>
   <ion-grid>
     <ion-row>
-      <ion-col>Datos de contacto</ion-col>
+      <ion-col>Datos de la empresa</ion-col>
       <ion-col>Datos de representante legal</ion-col>
     </ion-row>
     <ion-row *ngFor ="let element of dataSource" >

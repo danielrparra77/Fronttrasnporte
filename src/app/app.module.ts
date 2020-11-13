@@ -9,14 +9,23 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { AjaxService } from '../providers/ajax/ajax.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    BrowserAnimationsModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
+    AjaxService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

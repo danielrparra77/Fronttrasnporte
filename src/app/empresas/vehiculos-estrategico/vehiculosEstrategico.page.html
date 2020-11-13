@@ -1,0 +1,22 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title>
+      Consulta de vehiculos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor ="let element of vehiculosEstrategico">
+    <ion-card-header>
+      <ion-card-subtitle>EMPRESA: {{element.nombreEmp}}</ion-card-subtitle>
+      <ion-card-title>PLACA: {{element.placa}}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Identificación: {{element.tipoIdContEmp}} {{element.numeroIdContEmp}}
+      <br/>
+      Cantidad de conductores: {{element.cantidadConductores}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

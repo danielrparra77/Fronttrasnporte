@@ -2,77 +2,8 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { NuevoVehiculoPage } from './nuevo-vehiculo/nuevoVehiculo.page';
+import { AjaxService } from '../../providers/ajax/ajax.service';
 
-let ELEMENT_DATA:any[] = [
-  {
-    id:1,
-    vehiculos:[{
-      id_vehiculo:2,
-      placa:"cds789",
-      motor:"asdas",
-      chasis:"chasis",
-      modelo:"123",
-      fecha_matricula:"2020/02/20",
-      pasajeros:10,
-      pasajeros_sentados:5,
-      pasajeros_pie:5,
-      peso_seco:123,
-      peso_bruto:1235,
-      catidad_puertas:2,
-      marca:"asdas",
-      linea:"12334"
-    },{
-      id_vehiculo:3,
-      placa:"ciu789",
-      motor:"dfgas",
-      chasis:"chdfgdfs",
-      modelo:"1345345",
-      fecha_matricula:"2020/02/20",
-      pasajeros:10,
-      pasajeros_sentados:5,
-      pasajeros_pie:5,
-      peso_seco:123,
-      peso_bruto:1235,
-      catidad_puertas:2,
-      marca:"asdas",
-      linea:"12334"
-    }]
-  },  
-  {
-    id:2,
-    vehiculos:[{
-      id_vehiculo:0,
-      placa:"cds789",
-      motor:"agjghjs",
-      chasis:"chasis",
-      modelo:"123",
-      fecha_matricula:"2020/02/20",
-      pasajeros:10,
-      pasajeros_sentados:5,
-      pasajeros_pie:5,
-      peso_seco:123,
-      peso_bruto:1235,
-      catidad_puertas:2,
-      marca:"qweqweas",
-      linea:"12334"
-    },{
-      id_vehiculo:1,
-      placa:"casdu789",
-      motor:"dfgas",
-      chasis:"cghjhghdfgdfs",
-      modelo:"1345345",
-      fecha_matricula:"2020/02/20",
-      pasajeros:10,
-      pasajeros_sentados:5,
-      pasajeros_pie:5,
-      peso_seco:123,
-      peso_bruto:1235,
-      catidad_puertas:2,
-      marca:"afdhggfdhas",
-      linea:"12334"
-    }]
-  },
-];
 
 @Component({
   selector: 'app-vehiculosPage',
@@ -85,7 +16,9 @@ export class VehiculosPage {
   id_empresa:Number;
   
 
-  constructor(public route:ActivatedRoute, public modalController: ModalController ) {
+  constructor(public route:ActivatedRoute
+    , public modalController: ModalController
+    , private ajax: AjaxService ) {
     this.dataSource = [];
     this.route.params.subscribe((params: any) => {
       if (params['id_empresa']) {
@@ -99,12 +32,23 @@ export class VehiculosPage {
   }
 
   consultarVehiculos(){
-    let vehiculos = ELEMENT_DATA.filter(e=>e.id==this.id_empresa);
-    if (vehiculos.length<=0)
-      return;
-    this.dataSource = vehiculos[0]["vehiculos"];
+    let self = this;
+    this.ajax.post('api/consultarVehiculos',{id_empresa:this.id_empresa}).subscribe(data => {
+      if (data.success) {
+        self.dataSource = data.response.vehiculos["vehiculos"];
+      }
+    });
   }
 
+  async crearVehiculo(nuevoVehiculo){
+    let self = this;
+    this.ajax.post('api/crearVehiculo',{nuevoVehiculo,id_empresa:this.id_empresa}).subscribe(data => {
+      if (data.success) {
+        nuevoVehiculo.id_vehiculo = data.response.id_vehiculo;
+        self.dataSource.push(nuevoVehiculo);
+      }
+    });
+  }
 
   async nuevoVehiculo() {
     let self = this;
@@ -118,7 +62,7 @@ export class VehiculosPage {
     });
     modal.onDidDismiss().then((datos)=>{
       if (datos.data.evento=='CREATE')
-        self.dataSource.push(datos.data.vehiculo);
+      return self.crearVehiculo(datos.data.vehiculo);
     });
     return await modal.present();
   }

@@ -24,7 +24,7 @@ export class NuevoVehiculoPage {
   }
 
   enviarVehiculo() {
-    let evento = this.vehiculo.id?"UPDATE":"CREATE";
+    let evento = this.vehiculo.id_vehiculo?"UPDATE":"CREATE";
     this.viewCtrl.dismiss({evento,vehiculo:this.vehiculo});
   }
 }
